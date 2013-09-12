@@ -1,0 +1,232 @@
+
+#On Variation in Processing
+
+Lecture: CCTP764  
+
+September 12, 2013
+
+Garrison LeMasters, CCT
+
+##Start with a review of last week
+
+###Experiences
+
+Successes, failures.  Insights.
+
+What **experiences** did you have with your first coding exercise?
+
+Did you make use of pseudo-code?  Did you document your code?
+
+Have you identified (already) areas or issues where you could expect problems?
+
+*Let's review:*
+
+Parts of a statement
+
+>**function name ([argument]) terminator**
+
+Again:  Functions are **verbs**, arguments are **predicate objects**.
+
+With a little luck, you've already identified some areas where we could capitalize on the nature of the computer to make our job easier.  E.g., repetition; flexibility (absolute addresses).  This is one area (of many!) where variables will be useful.
+
+##The coding environment
+
+Explore and explain how we'll be using GitHub.com this semester as a VCS (versioning control system) and as a site for collaboration.  Students register with GitHub and then set up a few repositories, forking the syllabus to start.  Probably ought to upload this lecture too.  NB that the blog has to wait until later this weekend.
+
+##Today's topic:  Variables
+
+Before we can get to variables, we need to move from unstructured, static code to structured, dynamic code.  Structured code is exactly how it sounds:  Structured.  Static code is executed once and done.  While your code only works in a linear fashion, structured code can leap and jump from point to point, making it much more flexible.
+
+Indeed, as we'll see, it makes it dynamic.
+
+So we need two functions.  These are system functions:  They are defined by the system.  They will be present in almost every bit of code you write from here on out.
+
+	setup() {
+		CODE GOES HERE;
+	}
+
+	draw() {
+		CODE GOES HERE;
+	}
+
+NB that operations occur within and without these loops.  More on this later.
+
+**setup()** and **draw()** both have CODE BLOCKS.
+
+**draw()** is a repeating loop (engine of processing).
+
+	//do 1ce
+	void setup() 
+	{
+	  size(200, 200);  // Size should be the first statement
+	  stroke(255);     // Set stroke color to white
+	  noLoop(); // <--discuss
+	}
+
+	float y = 100;
+
+	//do 1ce OR do repeatedly
+	void draw() 
+	{ 
+	  background(0);   // Set the background to black
+	  line(0, y, width, y);  
+	  y = y - 1; 
+	} 
+
+**To do:**  Let's rewrite one of your sketches to live within the **setup()** and **draw()** loops.
+
+* Open up one of your sketches.
+* Incorporate two functions:  **setup()** and **draw()**;
+
+*Discuss.*
+
+**So:  What is a variable?**
+
+*Technically, a variable is a named memory pointer.*Compiler changes variable name to memory address.  Metaphorically, there are a few ways to think of a variable.  Bucket.  Locker.  Post-It(TM) Note.  To my mind, the best is the Post Office Box.
+
+*Explain POBox metaphor.*
+
+2 elements of signficance with variables:  **Type** and **Scope**.
+
+For variables to work, we have to know at least two things about how we intend to use them.  (The degree of specificity here varies from language to language.)
+
+* Roughly, what is the range of values that the variable will be assigned? (**Type**)
+* At what points in the program will you want access to those values? (**Scope**)
+
+1st element of significance:  **Type.**  We'll save scope for later.
+
+##Typing
+What does type do for us?  Types:
+
+	char
+	string
+	boolean
+	integer
+	float
+	double
+
+Abstraction (or modularity) – Types allow programmers to think about programs at a higher level than the bit or byte, not bothering with low-level implementation. For example, programmers can think of a string as a collection of character values instead of as a mere array of bytes. Or, types can allow programmers to express the interface between two subsystems. This helps localize the definitions required for interoperability of the subsystems and prevents inconsistencies when those subsystems communicate.
+
+Documentation – In more expressive type systems, types can serve as a form of documentation, since they can illustrate the intent of the programmer. For instance, timestamps may be represented as integers—but if a programmer declares a function as returning a timestamp type rather than merely an integer type, this documents part of the meaning of the function.
+
+Optimization – Static type-checking may provide useful compile-time information. For example, if a type requires that a value must align in memory at a multiple of four bytes, the compiler may be able to use more efficient machine instructions.
+
+Safety – Use of types may allow a compiler to detect meaningless or probably invalid code. For example, we can identify an expression 3 / "Hello, World" as invalid, because the rules of arithmetic do not specify how to divide an integer by a string. As discussed below, strong typing offers more safety, but generally does not guarantee complete safety (see type safety for more information).
+
+	// variable declarations, initializations, assignments
+
+
+	float r; // dec float r;  
+	r = 2.0 * 100.0; // init r (float) by assigning 2
+	float zeta; // dec float zeta;  
+	zeta = n*r;
+
+	// now lets shorten and streamline, economize
+	// These two seperate statements:
+		int c;
+		c=12;
+
+	// Are combined into a single statement:
+		int c=12;
+	
+	// Similarly:
+	String greetingWarm="Hello, my friend";
+
+	float n=1.159;  
+	float r=2.0*100.0;  
+	float zeta=n*r;  
+	n=n+1.0;  
+	r=r+n;
+	c=int(r);  
+	// or  
+	r=float(c);  
+	// nb:  
+	float xy=float(100+c);  
+	// reassign; self-assign;
+	xy=xy+1.1;  
+	xy=5.0;  
+
+	int count = 0;          
+	// Declare an int named count, assigned the value 0  
+	char letter = 'a';      
+	// Declare a char named letter, assigned the value 'a'  
+	double y = 132.32;      
+	// Declare a double named y, assign value 132.32  
+	
+
+	boolean happy = false;  
+	// Declare a boolean named happy, etc.  
+	
+
+	float x = 4.0;          
+	// Declare a float named x, assigned the value 4.0  
+	float y;               
+	// Declare a float named y (no assignment... yet!)  
+	int y = x + 5.2;            
+	// Declare, assign the value of x plus 5.2 to the previously declared y  
+	float z = x*y + 15.0;   
+	// Declare a variable named z, assign it the value which is x times y plus 15.0.
+	
+	 
+
+##Scope
+Varieties of scope:
+
+1. Local
+2. Global
+
+*What does scope do for us?*
+
+Scope essentially describes the life-expectancy of a variable.  Remember that variables are memory addresses.  Maintaining the integrity of those addresses is costly in terms of time and (additional) memory.
+
+What's more, sometimes when we reuse code, we don't want to continually increase the size of a number, but we want to recalculate a number starting from zero.  This will make sense later.
+
+Local variables are like kids that graduate high school and never leave home.  They're very good to depend on when you're visiting the area, but they don't know much about the world, and they're useless when you travel.
+
+Global variables are cosmopolitan; they travel all over.
+
+**Scope is determined by placement:**  It is an *implicit value.*
+
+e.g. Here's the variable X with a local scope
+
+	void setup() {
+		size(200,200);
+	}
+	void draw() {
+		int x=100;
+		println(x);
+	}
+
+e.g., now here's that same program with x made global
+
+	int x;
+	void setup() {
+	}
+	void draw() {
+		x=100;
+		println(x);
+	}
+
+For now:  Let's prefer global variables.  It's sloppier to work this way, but a bit easier for the moment.  We'll fine tune later.
+
+So:  Let's return to your creature, and re-fashion it out of variables.
+
+*Decide*:  If you had to pick a centre-point of your monster, where would it be?  That X,Y coord is what we aim to replace.
+
+SO:
+
+	rect(100,120,50,50);
+	ellipse(100,90,30,30);
+
+Suggests to me an anchor point (roughly) of 110,110, which gives us some work to do:
+
+"X+" (old_x-110), "Y+" (oldy-110)
+
+	rect(X-10,Y+10,50,50);
+	ellipse(X-10,Y-20,30,30);
+
+**Now**:  Rewrite your code to include X and Y variables.  Bearing in mind that draw() is essentially an infinite loop, can you make your creature slide off the edge of the window to the right?
+
+**Be sure to start by writing out pseudo code.**
+
+**For next week:**  Update your creatures (fine tune them if you like); convert 2 to use variables.
