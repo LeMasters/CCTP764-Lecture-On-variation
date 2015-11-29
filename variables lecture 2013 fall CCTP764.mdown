@@ -1,5 +1,6 @@
-Wait.  Hold on a second... really?  No way.
-Did that just work in that fashion?
+This is a short lecture on Processing.
+Garrison LeMasters
+
 
 #On Variation in Processing
 
